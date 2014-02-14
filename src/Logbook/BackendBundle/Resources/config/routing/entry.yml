@@ -1,0 +1,28 @@
+entries_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Entry:listEntries }
+
+show_entry:
+    pattern: /entry/{id}
+    defaults: { _controller: BackendBundle:Entry:entryShow }
+
+new_entry:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Entry:newEntry }
+
+edit_entry:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Entry:editEntry }
+
+create_entry:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Entry:createEntry }
+
+put_entry:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Entry:putEntry }
+
+delete_entry:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Entry:deleteEntry }
+    

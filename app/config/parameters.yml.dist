@@ -1,0 +1,8 @@
+parameters:
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    secret: d1a20d931c99f3e0d75e682a9376f6b09efb1227
+    database_path: null
+    locale: es
