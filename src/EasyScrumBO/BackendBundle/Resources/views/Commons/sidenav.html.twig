@@ -1,0 +1,30 @@
+{% set action = app.request.attributes.get('_route') %}
+{% set params = app.request.attributes.get('_route_params') %}
+<div id="sidebar">
+	{#<div id="search">
+		<input type="text" placeholder="Search here..."/><button type="submit" class="tip-right" title="Search"><i class="fa fa-search"></i></button>
+	</div>#}
+	<ul>
+        <li class="submenu {%  if action == 'home' or action == 'api_users_list' or action == 'new_api_user' or action == 'edit_api_user' or action == 'show_api_user' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-user"></i> <span>{{ "usuarios"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'api_users_list' %}class="active"{% endif %}><a href="{{ path('api_users_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_api_user' %}class="active"{% endif %}><a href="{{ path('new_api_user') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
+        <li class="submenu {%  if action == 'sprints_list' or action == 'new_sprint' or action == 'edit_sprint' or action == 'show_sprint' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-book"></i> <span>{{ "diarios"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'sprints_list' %}class="active"{% endif %}><a href="{{ path('sprints_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_sprint' %}class="active"{% endif %}><a href="{{ path('new_sprint') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
+        <li class="submenu {%  if action == 'sprint_list' or action == 'new_task' or action == 'edit_task' or action == 'show_task' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-book"></i> <span>{{ "entradas"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'tasks_list' %}class="active"{% endif %}><a href="{{ path('tasks_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_task' %}class="active"{% endif %}><a href="{{ path('new_task') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

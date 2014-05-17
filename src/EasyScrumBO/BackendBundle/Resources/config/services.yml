@@ -1,0 +1,43 @@
+parameters:
+    admin.user.model.class: EasyScrumBO\BackendBundle\Model\Handler\AdminUserHandler
+    rest.handler.class: EasyScrumBO\BackendBundle\Model\Handler\RESTHandler
+    company.json.type: EasyScrumBO\BackendBundle\Form\Type\JsonCompanyType
+    sprint.json.type: EasyScrumBO\BackendBundle\Form\Type\JsonSprintType
+    image.handler.class: EasyScrumBO\BackendBundle\Model\Handler\ImageHandler
+    task.json.type: EasyScrumBO\BackendBundle\Form\Type\JsonTaskType
+    expirable.action.listener.class: EasyScrumBO\BackendBundle\EventListener\ExpirableActionListener
+
+services:
+    rest.handler.model:
+        class: %rest.handler.class%
+        arguments: [@easyscrum.client]
+        
+    form.type.json.company:
+        class: %company.json.type%
+        arguments:
+            - @rest.handler.model
+            - @service_container
+        tags:
+            - { name: form.type, alias: json_company }
+            
+    form.type.json.sprint:
+        class: %sprint.json.type%
+        arguments:
+            - @rest.handler.model
+            - @service_container
+        tags:
+            - { name: form.type, alias: json_sprint }        
+
+    form.type.json.task:
+        class: %task.json.type%
+        arguments:
+            - @rest.handler.model
+            - @service_container
+        tags:
+            - { name: form.type, alias: json_task }
+
+    expirable.action_listener:
+        class: %expirable.action.listener.class%
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

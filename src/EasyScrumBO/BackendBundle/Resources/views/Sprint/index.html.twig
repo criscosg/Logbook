@@ -1,0 +1,95 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Sprints" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Sprints':''} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_sprint') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
+        </a>
+    </div>
+    
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Búsqueda de sprints"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="{{ path('sprints_list') }}" method="get" class="form-inline" role="form">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.title, { 'attr': { 'class': 'form-control', 'placeholder': "Nombre"|trans} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.user, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                
+                {{ form_rest(form) }}
+                <button id="register" type="submit" class="btn btn-large btn-primary">
+                    {{ "Buscar"|trans }}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% if sprints | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de sprints"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Título" | trans }}</th>
+                    <th>{{ "Usuario" | trans }}</th>
+                    <th>{{ "Creado" | trans }}</th>
+                    <th>{{ "Descripción" | trans }}</th>
+                    <th>{{ "Acciones" | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for sprint in sprints %}
+                    <tr>
+                        <td>{% if sprint.title is defined %}{{ sprint.title }}{% endif %}</td>
+                        <td>{% if sprint.user is defined %}
+                                <a title="{{ "Ver usuario"|trans }}" href="{{ path('show_api_user', { 'id': sprint.user.id }) }}">{{ sprint.user.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td>{% if sprint.created is defined %}{{ sprint.created |date('d/m/Y') }}{% endif %}</td>
+                        <td>{{ sprint.description }}</td>
+                        <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_sprint', { 'id': sprint.id }) }}"><i class="fa fa-eye"></i></a>
+                            <a title="Modificar" href="{{ path('edit_sprint', { 'id': sprint.id }) }}"><i class="fa fa-pencil"></i></a>
+                            <a title="Borrar" href="{{ path('delete_sprint', { 'id': sprint.id }) }}"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+tasks_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Task:listEntries }
+
+show_task:
+    pattern: /task/{id}
+    defaults: { _controller: BackendBundle:Task:taskShow }
+
+new_task:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Task:newTask }
+
+edit_task:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Task:editTask }
+
+create_task:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Task:createTask }
+
+put_task:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Task:putTask }
+
+delete_task:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Task:deleteTask }
+    

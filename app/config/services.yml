@@ -1,35 +1,35 @@
 services:
     twig.extension.ajax:
-        class: Logbook\BackendBundle\Twig\Extension\AjaxExtension
+        class: EasyScrumBO\BackendBundle\Twig\Extension\AjaxExtension
         arguments: 
             container: @service_container
         tags:
             - { name: twig.extension }
 
     twig.extension.interface:
-        class: Logbook\BackendBundle\Twig\Extension\InterfaceExtension
+        class: EasyScrumBO\BackendBundle\Twig\Extension\InterfaceExtension
         arguments: 
             container: @service_container
         tags:
             - { name: twig.extension }
 
     twig.extension.javascript:
-        class: Logbook\BackendBundle\Twig\Extension\JavascriptExtension
+        class: EasyScrumBO\BackendBundle\Twig\Extension\JavascriptExtension
         tags:
             - { name: twig.extension }
 
     twig.extension.breadcrumb:
-        class: Logbook\BackendBundle\Twig\Extension\BreadCrumbExtension
+        class: EasyScrumBO\BackendBundle\Twig\Extension\BreadCrumbExtension
         tags:
             - { name: twig.extension }
 
     twig.extension.drawingboard:
-        class: Logbook\BackendBundle\Twig\Extension\DrawingboardExtension
+        class: EasyScrumBO\BackendBundle\Twig\Extension\DrawingboardExtension
         tags:
             - { name: twig.extension }
 
-    logbook.client:
+    easyscrum.client:
         class: %guzzle.client.class%
         tags:
             - { name: guzzle.client }
-        arguments: [%logbook.rest.uri%]
+        arguments: [%EasyScrumBo.rest.uri%]

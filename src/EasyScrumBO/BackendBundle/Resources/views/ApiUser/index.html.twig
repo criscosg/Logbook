@@ -1,0 +1,64 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Listado de usuarios" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Usuarios':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_api_user') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
+        </a>
+    </div>
+
+    {% if api_users | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de usuarios"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Nombre"|trans }}</th>
+                    <th>{{ "Apellido"|trans }}</th>
+                    <th>{{ "Email"|trans }}</th>
+                    <th>{{ "Creado"|trans }}</th>
+                    <th>{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for api_user in api_users %}
+                    <tr>
+                        <td>{% if api_user.name is defined %}{{ api_user.name }}{% endif %}</td>
+                        <td>{% if api_user.last_name is defined %}{{ api_user.last_name }}{% endif %}</td>
+                        <td>{{ api_user.email }}</td>
+                        <td>{% if api_user.created is defined %}{{ api_user.created |date('d/m/Y') }}{% endif %}</td>
+                        <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_api_user', { 'id': api_user.id }) }}"><i class="fa fa-eye"></i></a>
+                            <a title="Modificar" href="{{ path('edit_api_user', { 'id': api_user.id }) }}"><i class="fa fa-pencil"></i></a>
+                            <a title="Borrar" href="{{ path('delete_api_user', { 'id': api_user.id }) }}"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

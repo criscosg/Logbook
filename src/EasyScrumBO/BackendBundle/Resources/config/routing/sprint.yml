@@ -1,0 +1,27 @@
+sprints_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Sprint:listSprints }
+    
+show_sprint:
+    pattern: /sprint/{id}
+    defaults: { _controller: BackendBundle:Sprint:sprintShow }  
+    
+new_sprint:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Sprint:newSprint }
+    
+edit_sprint:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Sprint:editSprint }    
+    
+create_sprint:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Sprint:createSprint }
+    
+put_sprint:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Sprint:putSprint }
+    
+delete_sprint:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Sprint:deleteSprint }    

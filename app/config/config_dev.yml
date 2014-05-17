@@ -2,9 +2,9 @@ imports:
     - { resource: config.yml }
     
 parameters:
-    logbook.rest.uri: "http://rest.logbook.me/app_dev.php/"
-    logbook.rest.oauth.id: 1_ya1z97izbqooc80c08o0cgcogwcw0g4s4ksgsk84gkwkcco0s # estos parametros dependeran de lo que generes en tu servidor en local
-    logbook.rest.oauth.secret: 2vdvviz5j6040cs4g0ow04k8gokwck08kccoscwg0c8wswk04k
+    EasyScrumBO.rest.uri: "http://rest.easyscrum.me/app_dev.php/"
+    EasyScrumBO.rest.oauth.id: 1_4uupd6czz1gkko4gskwokwk04kwwwkok4o8go40wgkgw0ow8ck # estos parametros dependeran de lo que generes en tu servidor en local
+    EasyScrumBO.rest.oauth.secret: 1z3k5ks2ybj4k8s0wgkwwgc8g84cc444cgk40w4o0cskc00ok4 
 
 framework:
     router:
