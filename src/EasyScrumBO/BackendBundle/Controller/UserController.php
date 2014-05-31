@@ -12,7 +12,7 @@ class UserController extends Controller
     public function listUsersAction()
     {
         $session = $this->getRequest()->getSession();
-        $users = $this->get('rest.handler.model')->getList('users', 'users', $session->get('access_token'));
+        $users = $this->get('rest.handler.model')->getList('users', 'users', $session->get('access_token'), false);
 
         return $this->render('BackendBundle:Users:index.html.twig', array('users' => $users));
     }
@@ -20,7 +20,7 @@ class UserController extends Controller
     public function userShowAction($id)
     {
         $session = $this->getRequest()->getSession();
-        $user = $this->get('rest.handler.model')->get('users/'.$id, 'user', $session->get('access_token'));
+        $user = $this->get('rest.handler.model')->get('users/'.$id, 'user', $session->get('access_token'), false);
 
         return $this->render('BackendBundle:Users:view.html.twig', array('user' => $user));
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
     {
         $params=$this->getRequest()->request->get('admin_user');
         $session = $this->getRequest()->getSession();
-        $user = $this->get('rest.handler.model')->post("users", array('admin_user'=>$params), $session->get('access_token'));
+        $user = $this->get('rest.handler.model')->post("users", array('admin_user'=>$params), $session->get('access_token'), false);
 
         return $this->redirect($this->generateUrl('users_list'));
     }
@@ -54,7 +54,7 @@ class UserController extends Controller
     {
         $params=$this->getRequest()->request->get('admin_user');
         $session = $this->getRequest()->getSession();
-        $user = $this->get('rest.handler.model')->put("users/".$id, array('admin_user'=>$params), $session->get('access_token'));
+        $user = $this->get('rest.handler.model')->put("users/".$id, array('admin_user'=>$params), $session->get('access_token'), false);
 
         return $this->redirect($this->generateUrl('users_list'));
     }

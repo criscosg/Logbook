@@ -9,6 +9,8 @@ use EasyScrumBO\BackendBundle\Util\StringHelper;
 
 class RESTHandler
 {
+    const URL_PREFIX = 'security/';
+
     protected $client;
 
     public function __construct(Client $client)
@@ -16,13 +18,21 @@ class RESTHandler
         $this->client = $client;
     }
 
-    public function getList($path, $dataName = null, $params)
+    public function getList($path, $dataName = null, $params, $security = true)
     {
         if (is_array($params)) {
             $get = StringHelper::getQueryArrayFromArray($params);
-            $request = $this->client->get($path.$get);
+            if ($security) {
+                $request = $this->client->get(self::URL_PREFIX.$path.$get);
+            } else {
+                $request = $this->client->get($path.$get);
+            }
         } else {
-            $request = $this->client->get($path."?access_token=".$params);
+            if ($security) {
+                $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$params);
+            } else {
+                $request = $this->client->get($path.$params);
+            }
         }
         $response = $request->send();
         $data = $response->json();
@@ -30,26 +40,43 @@ class RESTHandler
         return $data;
     }
 
-    public function get($path, $dataName, $token)
+    public function get($path, $dataName, $token = null, $params = null)
     {
-        $request = $this->client->get($path."?access_token=".$token);
+        if (!$token) {
+            if (is_array($params)) {
+                $get = StringHelper::getQueryArrayFromArray($params);
+                $request = $this->client->get($path.$get);
+            } else {
+                $request = $this->client->get($path.$params);
+            }
+        } else {
+            $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$token);
+        }
         $response = $request->send();
         $data = $response->json();
 
         return $data;
     }
 
-    public function post($path, $params, $token)
+    public function post($path, $params, $token = null)
     {
-        $request = $this->client->post($path."?access_token=".$token, array(), $params);
+        if (!$token) {
+            $request = $this->client->post($path, array(), $params);
+        } else {
+            $request = $this->client->post(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
+        }
         $response = $request->send();
 
         return $response->json();
     }
 
-    public function put($path, $params, $token)
+    public function put($path, $params, $token = null)
     {
-        $request = $this->client->put($path."?access_token=".$token, array(), $params);
+        if (!$token) {
+            $request = $this->client->put($path, array(), $params);
+        } else {
+            $request = $this->client->put(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
+        }
         $response = $request->send();
 
         return $response->json();
@@ -57,15 +84,19 @@ class RESTHandler
 
     public function patch($path, $params, $token)
     {
-        $request = $this->client->patch($path."?access_token=".$token, array(), $params);
+        $request = $this->client->patch(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();
     }
 
-    public function delete($path, $token)
+    public function delete($path, $token = null)
     {
-        $request = $this->client->delete($path."?access_token=".$token);
+        if (!$token) {
+            $request = $this->client->delete($path);
+        } else {
+            $request = $this->client->delete(self::URL_PREFIX.$path."?access_token=".$token);;
+        }
         $response = $request->send();
 
         return $response;
